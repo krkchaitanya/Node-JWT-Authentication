@@ -68,6 +68,17 @@ return new Promise((resolve,reject)=>{
   });
 };
 
+UserSchema.methods.removeToken=function(token){
+  var user=this;
+  return user.update({
+    $pull:{
+      tokens:{
+        token:token
+      }
+    }
+  })
+};
+
 UserSchema.statics.findByCredentails=function(email,password){
   var user=this;
   return User.findOne({email}).then((user)=>{
